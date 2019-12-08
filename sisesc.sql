@@ -15,11 +15,11 @@ CREATE SCHEMA IF NOT EXISTS `Escola` DEFAULT CHARACTER SET utf8 ;
 USE `Escola` ;
 
 -- -----------------------------------------------------
--- Table `Escola`.`TipoLogradouro`
+-- Table `Escola`.`tbl_TipoLogradouro`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`TipoLogradouro` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_TipoLogradouro` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`TipoLogradouro` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_TipoLogradouro` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `tipo` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
@@ -27,11 +27,11 @@ CREATE TABLE IF NOT EXISTS `Escola`.`TipoLogradouro` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Pais`
+-- Table `Escola`.`tbl_Pais`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Pais` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Pais` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Pais` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Pais` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(80) NOT NULL,
   PRIMARY KEY (`id`))
@@ -39,65 +39,65 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Pais` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Estado`
+-- Table `Escola`.`tbl_Estado`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Estado` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Estado` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Estado` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Estado` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(80) NULL,
   `fk_pais` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_pais`)
-    REFERENCES `Escola`.`Pais` (`id`)
+    REFERENCES `Escola`.`tbl_Pais` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Localidade`
+-- Table `Escola`.`tbl_Localidade`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Localidade` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Localidade` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Localidade` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Localidade` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(80) NOT NULL,
   `fk_estado` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_estado`)
-    REFERENCES `Escola`.`Estado` (`id`)
+    REFERENCES `Escola`.`tbl_Estado` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Bairro`
+-- Table `Escola`.`tbl_Bairro`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Bairro` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Bairro` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Bairro` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Bairro` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(80) NOT NULL,
   `fk_cidade` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_cidade`)
-    REFERENCES `Escola`.`Localidade` (`id`)
+    REFERENCES `Escola`.`tbl_Localidade` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Logradouro`
+-- Table `Escola`.`tbl_Logradouro`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Logradouro` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Logradouro` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Logradouro` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Logradouro` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `fk_bairro` INT NOT NULL,
@@ -105,23 +105,23 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Logradouro` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_tipo_logradouro`)
-    REFERENCES `Escola`.`TipoLogradouro` (`id`)
+    REFERENCES `Escola`.`tbl_TipoLogradouro` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_bairro`)
-    REFERENCES `Escola`.`Bairro` (`id`)
+    REFERENCES `Escola`.`tbl_Bairro` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Endereco`
+-- Table `Escola`.`tbl_Endereco`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Endereco` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Endereco` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Endereco` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Endereco` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_logradouro` INT NOT NULL,
   `numero` INT NOT NULL,
@@ -129,18 +129,18 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Endereco` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_logradouro`)
-    REFERENCES `Escola`.`Logradouro` (`id`)
+    REFERENCES `Escola`.`tbl_Logradouro` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Usuário`
+-- Table `Escola`.`tbl_Usuário`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Usuário` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Usuário` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Usuário` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Usuário` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(40) NOT NULL,
   `sobrenome` VARCHAR(80) NOT NULL,
@@ -153,18 +153,18 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Usuário` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_endereco`)
-    REFERENCES `Escola`.`Endereco` (`id`)
+    REFERENCES `Escola`.`tbl_Endereco` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Curso`
+-- Table `Escola`.`tbl_Curso`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Curso` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Curso` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Curso` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Curso` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(50) NULL,
   `fk_departamento` INT NOT NULL,
@@ -174,92 +174,92 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Curso` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Aluno`
+-- Table `Escola`.`tbl_Aluno`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Aluno` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Aluno` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Aluno` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Aluno` (
   `matricula` INT NOT NULL AUTO_INCREMENT,
   `fk_curso` INT NOT NULL,
   `fk_user` INT NOT NULL,
   `status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`matricula`),
     FOREIGN KEY (`fk_user`)
-    REFERENCES `Escola`.`Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuário` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_curso`)
-    REFERENCES `Escola`.`Curso` (`id`)
+    REFERENCES `Escola`.`tbl_Curso` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Funcionario`
+-- Table `Escola`.`tbl_Funcionario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Funcionario` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Funcionario` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Funcionario` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Funcionario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `Escola`.`Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuário` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Colegiado`
+-- Table `Escola`.`tbl_Colegiado`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Colegiado` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Colegiado` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Colegiado` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Colegiado` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `fk_curso` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_curso`)
-    REFERENCES `Escola`.`Curso` (`id`)
+    REFERENCES `Escola`.`tbl_Curso` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Professor`
+-- Table `Escola`.`tbl_Professor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Professor` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Professor` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Professor` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Professor` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_colegiado` INT NOT NULL,
   `fk_funcionario` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_funcionario`)
-    REFERENCES `Escola`.`Funcionario` (`id`)
+    REFERENCES `Escola`.`tbl_Funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_colegiado`)
-    REFERENCES `Escola`.`Colegiado` (`id`)
+    REFERENCES `Escola`.`tbl_Colegiado` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Permissao`
+-- Table `Escola`.`tbl_Permissao`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Permissao` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Permissao` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Permissao` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Permissao` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NULL,
   PRIMARY KEY (`id`))
@@ -267,34 +267,34 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Permissao` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`User-Permissao`
+-- Table `Escola`.`tbl_User-Permissao`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`User-Permissao` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_User-Permissao` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`User-Permissao` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_User-Permissao` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_user` INT NOT NULL,
   `fk_permissao` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_user`)
-    REFERENCES `Escola`.`Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuário` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_permissao`)
-    REFERENCES `Escola`.`Permissao` (`id`)
+    REFERENCES `Escola`.`tbl_Permissao` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`NomeDisciplina`
+-- Table `Escola`.`tbl_NomeDisciplina`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`NomeDisciplina` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_NomeDisciplina` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`NomeDisciplina` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_NomeDisciplina` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(80) NULL,
   `NomeDisciplinacol` VARCHAR(45) NULL,
@@ -303,11 +303,11 @@ CREATE TABLE IF NOT EXISTS `Escola`.`NomeDisciplina` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Disciplina`
+-- Table `Escola`.`tbl_Disciplina`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Disciplina` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Disciplina` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Disciplina` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Disciplina` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` INT NOT NULL,
   `descricao` VARCHAR(240) NULL,
@@ -317,23 +317,23 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Disciplina` (
   `carga_horaria` INT(10) NULL,
   PRIMARY KEY (`id`),
     FOREIGN KEY (`nome`)
-    REFERENCES `Escola`.`NomeDisciplina` (`id`)
+    REFERENCES `Escola`.`tbl_NomeDisciplina` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_curso`)
-    REFERENCES `Escola`.`Curso` (`id`)
+    REFERENCES `Escola`.`tbl_Curso` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Semestre`
+-- Table `Escola`.`tbl_Semestre`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Semestre` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Semestre` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Semestre` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Semestre` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `ano` INT NULL,
   `semestre` INT(2) NULL,
@@ -342,34 +342,34 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Semestre` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Disciplina-Semestre`
+-- Table `Escola`.`tbl_Disciplina-Semestre`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Disciplina-Semestre` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Disciplina-Semestre` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Disciplina-Semestre` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Disciplina-Semestre` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_semestre` INT NOT NULL,
   `fk_disciplina` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_semestre`)
-    REFERENCES `Escola`.`Semestre` (`id`)
+    REFERENCES `Escola`.`tbl_Semestre` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_disciplina`)
-    REFERENCES `Escola`.`Disciplina` (`id`)
+    REFERENCES `Escola`.`tbl_Disciplina` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Aluno-Disciplina`
+-- Table `Escola`.`tbl_Aluno-Disciplina`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Aluno-Disciplina` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Aluno-Disciplina` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Aluno-Disciplina` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Aluno-Disciplina` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_aluno` INT NOT NULL,
   `fk_disciplina_semestre` INT NOT NULL,
@@ -377,71 +377,71 @@ CREATE TABLE IF NOT EXISTS `Escola`.`Aluno-Disciplina` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_disciplina_semestre`)
-    REFERENCES `Escola`.`Disciplina-Semestre` (`id`)
+    REFERENCES `Escola`.`tbl_Disciplina-Semestre` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_aluno`)
-    REFERENCES `Escola`.`Aluno` (`matricula`)
+    REFERENCES `Escola`.`tbl_Aluno` (`matricula`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Aluno-Frequencia`
+-- Table `Escola`.`tbl_Aluno-Frequencia`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Aluno-Frequencia` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Aluno-Frequencia` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Aluno-Frequencia` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Aluno-Frequencia` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_aluno_disciplina` INT NOT NULL,
   `presenca` VARCHAR(5) NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_aluno_disciplina`)
-    REFERENCES `Escola`.`Aluno-Disciplina` (`id`)
+    REFERENCES `Escola`.`tbl_Aluno-Disciplina` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Professor-Disciplina`
+-- Table `Escola`.`tbl_Professor-Disciplina`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Professor-Disciplina` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Professor-Disciplina` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Professor-Disciplina` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Professor-Disciplina` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_professor` INT NOT NULL,
   `fk_disciplina-semestre` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_professor`)
-    REFERENCES `Escola`.`Professor` (`id`)
+    REFERENCES `Escola`.`tbl_Professor` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
     FOREIGN KEY (`fk_disciplina-semestre`)
-    REFERENCES `Escola`.`Disciplina-Semestre` (`id`)
+    REFERENCES `Escola`.`tbl_Disciplina-Semestre` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Aluno-Nota`
+-- Table `Escola`.`tbl_Aluno-Nota`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Aluno-Nota` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Aluno-Nota` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Aluno-Nota` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Aluno-Nota` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_aluno_disciplina` INT NOT NULL,
   `nota` DOUBLE NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_aluno_disciplina`)
-    REFERENCES `Escola`.`Aluno-Disciplina` (`id`)
+    REFERENCES `Escola`.`tbl_Aluno-Disciplina` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
@@ -484,7 +484,7 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_formacao` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_funcionario`)
-    REFERENCES `Escola`.`Funcionario` (`id`)
+    REFERENCES `Escola`.`tbl_Funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
@@ -501,18 +501,18 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_formacao` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`Telefone`
+-- Table `Escola`.`tbl_Telefone`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`Telefone` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Telefone` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`Telefone` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Telefone` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `numero` VARCHAR(20) NOT NULL,
   `fk_user` INT NOT NULL,
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_user`)
-    REFERENCES `Escola`.`Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuário` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
@@ -531,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_login` (
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`),
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `Escola`.`Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuário` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
