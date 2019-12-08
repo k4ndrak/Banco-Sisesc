@@ -536,3 +536,61 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_login` (
     ON UPDATE NO ACTION)
 ;
 
+-- -----------------------------------------------------
+-- inserindo dados
+-- -----------------------------------------------------
+
+insert into tbl_Pais
+values
+(null, 'Brasil'),
+(null, 'República Checa'),
+(null, 'Áustria'),
+(null, 'Hungria'),
+(null, 'Eslováquia');
+
+insert into tbl_Estado
+VALUES
+(null, 'Amapá', 1),
+(null, 'Pará', 1),
+(null, 'Rio Grande do Sul', 1),
+(null, 'São Paulo', 1),
+(null, 'Rio de Janeiro', 1),
+(null, 'Praga', 2),
+(null, 'Viena', 3),
+(null, 'Budapeste', 4),
+(null, 'Bratislava', 5);
+
+insert into tbl_Localidade
+VALUES
+(null,'Macapá',1),
+(null,'Santana',1),
+(null,'Laranjal do Jari',1),
+(null,'Afuá',2),
+(null,'Belém',2),
+(null,'Bragança',2),
+(null,'Gramado',3),
+(null,'Canela',3),
+(null,'Bauru',4),
+(null,'Angra dos Reis',5);
+
+insert into tbl_Bairro
+VALUES
+(null,'Zerão',1),
+(null,'Jesus de Nazaré',1),
+(null,'Novo Buritizal',1),
+(null,'Buritizal',1),
+(null,'Congós',1),
+(null,'Santa Rita',1),
+(null, 'Novo Horizonte',1),
+(null, 'Centro', 1),
+(null, 'Nova Esperança', 1),
+(null,'Novo Horizonte',2),
+(null,'Paraíso',2),
+(null,'Fonte Nova',2),
+(null,'Central',2),
+(null,'Hospitalidade',2),
+(null,'Vila Amazonas',2),
+(null, 'Nova Esperança', 3),
+(null, 'Centro', 3),
+(null, 'Cidade Velha',5),
+(null, 'Condor',5);
