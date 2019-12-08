@@ -136,11 +136,11 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Endereco` (
 
 
 -- -----------------------------------------------------
--- Table `Escola`.`tbl_Usuário`
+-- Table `Escola`.`tbl_Usuario`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`tbl_Usuário` ;
+DROP TABLE IF EXISTS `Escola`.`tbl_Usuario` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Usuário` (
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Usuario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(40) NOT NULL,
   `sobrenome` VARCHAR(80) NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Aluno` (
   `status` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`matricula`),
     FOREIGN KEY (`fk_user`)
-    REFERENCES `Escola`.`tbl_Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
@@ -207,7 +207,7 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Funcionario` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `Escola`.`tbl_Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
@@ -278,7 +278,7 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_User-Permissao` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_user`)
-    REFERENCES `Escola`.`tbl_Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
 
@@ -512,7 +512,7 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_Telefone` (
   PRIMARY KEY (`id`),
 
     FOREIGN KEY (`fk_user`)
-    REFERENCES `Escola`.`tbl_Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
@@ -531,7 +531,7 @@ CREATE TABLE IF NOT EXISTS `Escola`.`tbl_login` (
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`),
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `Escola`.`tbl_Usuário` (`id`)
+    REFERENCES `Escola`.`tbl_Usuario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
