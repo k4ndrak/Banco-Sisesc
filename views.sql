@@ -44,3 +44,25 @@ create view view_historico as
 	join tbl_prof_disc on tbl_disc_semestre.fk_prof_disc = tbl_prof_disc.id
 	join tbl_disciplina on tbl_prof_disc.fk_discip_prof = tbl_disciplina.id;
 $$
+
+
+drop view if exists view_endereco;
+
+delimiter $$
+create view view_endereco as
+	select fk_user_end as Usuario, concat(lograd_descricao, ' ', tbl_rua.nome) as Endereco, n_casa as 'Nº', tbl_cep.cep as CEP,
+	bairro as Bairro, cid_descricao as Cidade, uf_descricao as Estado from tbl_end
+	inner join tbl_rua on tbl_end.fk_rua = tbl_rua.id
+	join tbl_logradouro on tbl_rua.fk_logradouro = tbl_logradouro.id
+	join tbl_cep on tbl_rua.fk_cep = tbl_cep.id
+	join tbl_bairros on tbl_rua.fk_bairro = tbl_bairros.id
+	join tbl_cidades on tbl_bairros.id_fk = tbl_cidades.id
+	join tbl_uf on tbl_cidades.id_fk = tbl_uf.id;
+$$
+
+drop view if exists view_dados_aluno_endereco;
+
+delimiter $$
+create view view_dados_aluno_endereco as
+	select * from view_dados_aluno, view_endereco where view_dados_aluno.matricula = view_endereco.Usuario;
+delimiter $$

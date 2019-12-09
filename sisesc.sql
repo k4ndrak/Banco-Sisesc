@@ -7,7 +7,7 @@ DROP SCHEMA IF EXISTS `sistema_escola` ;
 -- -----------------------------------------------------
 -- Schema sistema_escola
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `sistema_escola` DEFAULT CHARACTER SET latin1 ;
+CREATE SCHEMA IF NOT EXISTS `sistema_escola` DEFAULT CHARACTER SET utf8 COLLATE utf8_bin ;
 USE `sistema_escola` ;
 
 -- -----------------------------------------------------
@@ -19,8 +19,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_colegiado` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nome_colegiado` VARCHAR(50) NOT NULL,
   `cod_colegiado` VARCHAR(10) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -34,31 +33,12 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_cursos` (
   `nome_curso` VARCHAR(50) NOT NULL,
   `cod_curso` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`fk_coleg_curso`)
     REFERENCES `sistema_escola`.`tbl_colegiado` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
-
-
--- -----------------------------------------------------
--- Table `sistema_escola`.`tbl_turmas`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sistema_escola`.`tbl_turmas` ;
-
-CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_turmas` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `fk_curso_turma` INT(11) NOT NULL,
-  `numero_alunos_tur` INT(11) NOT NULL,
-  `periodo` VARCHAR(4) NOT NULL,
-  `data_inicio` DATE NOT NULL,
-  `data_fim` DATE NOT NULL,
-  PRIMARY KEY (`id`),
-    FOREIGN KEY (`fk_curso_turma`)
-    REFERENCES `sistema_escola`.`tbl_cursos` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -76,8 +56,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_user` (
   `pai_user` VARCHAR(60) NOT NULL,
   `mae_user` VARCHAR(60) NOT NULL,
   `email_user` VARCHAR(90) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -92,19 +71,18 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno` (
   `fk_turma_aluno` INT(11) NOT NULL,
   `ano_inicio` INT(11) NOT NULL,
   PRIMARY KEY (`matricula`),
+  
+  
+  
     FOREIGN KEY (`fk_curso_aluno`)
     REFERENCES `sistema_escola`.`tbl_cursos` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
-    FOREIGN KEY (`fk_turma_aluno`)
-    REFERENCES `sistema_escola`.`tbl_turmas` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
+  
     FOREIGN KEY (`fk_user_aluno`)
     REFERENCES `sistema_escola`.`tbl_user` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -118,29 +96,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_disciplina` (
   `nome_discipl` VARCHAR(50) NOT NULL,
   `carga_hora_disc` INT(11) NOT NULL,
   `num_aluno_disc` INT(11) NOT NULL,
-  PRIMARY KEY (`id`))
-;
-
-
--- -----------------------------------------------------
--- Table `sistema_escola`.`tbl_aluno_disc`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sistema_escola`.`tbl_aluno_disc` ;
-
-CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno_disc` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `fk_aluno` INT(11) NOT NULL,
-  `fk_dicsc` INT(11) NOT NULL,
-  PRIMARY KEY (`id`),
-    FOREIGN KEY (`fk_aluno`)
-    REFERENCES `sistema_escola`.`tbl_aluno` (`matricula`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-    FOREIGN KEY (`fk_dicsc`)
-    REFERENCES `sistema_escola`.`tbl_disciplina` (`id`)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -152,8 +108,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_uf` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `UF` VARCHAR(5) NOT NULL,
   `UF_DESCRICAO` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -168,11 +123,12 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_cidades` (
   `DRS_ID` VARCHAR(50) NULL DEFAULT NULL,
   `CID_NUM_IBGE` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`id_FK`)
     REFERENCES `sistema_escola`.`tbl_uf` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -187,11 +143,12 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_bairros` (
   `BAIRRO` VARCHAR(50) NOT NULL,
   `IBGE` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`id_FK`)
     REFERENCES `sistema_escola`.`tbl_cidades` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -204,15 +161,18 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_curso_discip` (
   `fk_curso` INT(11) NOT NULL,
   `fk_discip` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
+  
     FOREIGN KEY (`fk_curso`)
     REFERENCES `sistema_escola`.`tbl_cursos` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
+  
     FOREIGN KEY (`fk_discip`)
     REFERENCES `sistema_escola`.`tbl_disciplina` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -224,11 +184,12 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_funcionario` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `fk_user` INT NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`fk_user`)
     REFERENCES `sistema_escola`.`tbl_user` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -242,15 +203,18 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_professor` (
   `fk_coleg_prof` INT(11) NOT NULL,
   `status_prof` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
+  
     FOREIGN KEY (`fk_coleg_prof`)
     REFERENCES `sistema_escola`.`tbl_colegiado` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
+  
     FOREIGN KEY (`fk_func_prof`)
     REFERENCES `sistema_escola`.`tbl_funcionario` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -263,15 +227,18 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_prof_disc` (
   `fk_professor` INT(11) NOT NULL,
   `fk_discip_prof` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
+  
     FOREIGN KEY (`fk_discip_prof`)
     REFERENCES `sistema_escola`.`tbl_disciplina` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
+  
     FOREIGN KEY (`fk_professor`)
     REFERENCES `sistema_escola`.`tbl_professor` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -284,8 +251,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_semestre` (
   `nome` VARCHAR(45) NOT NULL,
   `data_inicio` DATE NOT NULL,
   `data_fim` DATE NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -295,18 +261,26 @@ DROP TABLE IF EXISTS `sistema_escola`.`tbl_disc_semestre` ;
 
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_disc_semestre` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `fk_prof_disc` INT NOT NULL,
+  `fk_disc` INT NOT NULL,
   `fk_semestre` INT NOT NULL,
+  `fk_professor` INT NOT NULL,
   PRIMARY KEY (`id`),
-    FOREIGN KEY (`fk_prof_disc`)
-    REFERENCES `sistema_escola`.`tbl_prof_disc` (`id`)
+  
+      
+    FOREIGN KEY (`fk_disc`)
+    REFERENCES `sistema_escola`.`tbl_disciplina` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  
     FOREIGN KEY (`fk_semestre`)
     REFERENCES `sistema_escola`.`tbl_semestre` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION,
+  
+    FOREIGN KEY (`fk_professor`)
+    REFERENCES `sistema_escola`.`tbl_professor` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -318,13 +292,14 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_historico` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `fk_aluno_hist` INT(11) NOT NULL,
   `data_inicio` DATE NOT NULL,
-  `data_fim` DATE,
+  `data_fim` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`fk_aluno_hist`)
     REFERENCES `sistema_escola`.`tbl_aluno` (`matricula`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -338,15 +313,18 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_disc_hist` (
   `fk_disc_semestre` INT(11) NOT NULL,
   `fk_hist` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
+  
     FOREIGN KEY (`fk_disc_semestre`)
     REFERENCES `sistema_escola`.`tbl_disc_semestre` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
+  
     FOREIGN KEY (`fk_hist`)
     REFERENCES `sistema_escola`.`tbl_historico` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -358,8 +336,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_logradouro` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `LOGRAD_DESCRICAO` VARCHAR(15) NOT NULL,
   `LOGRAD` VARCHAR(7) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -368,10 +345,9 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_logradouro` (
 DROP TABLE IF EXISTS `sistema_escola`.`tbl_cep` ;
 
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_cep` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `cep` VARCHAR(9) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -380,25 +356,30 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_cep` (
 DROP TABLE IF EXISTS `sistema_escola`.`tbl_rua` ;
 
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_rua` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `fk_bairro` INT NOT NULL,
   `fk_logradouro` INT NOT NULL,
   `fk_cep` INT NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
+  
+  
     FOREIGN KEY (`fk_bairro`)
     REFERENCES `sistema_escola`.`tbl_bairros` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  
     FOREIGN KEY (`fk_logradouro`)
     REFERENCES `sistema_escola`.`tbl_logradouro` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  
     FOREIGN KEY (`fk_cep`)
     REFERENCES `sistema_escola`.`tbl_cep` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -412,16 +393,19 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_end` (
   `fk_rua` INT(11) NOT NULL,
   `n_casa` VARCHAR(15) NOT NULL,
   `complemento` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`id`),  
+  PRIMARY KEY (`id`),
+  
+  
+  
     FOREIGN KEY (`fk_user_end`)
     REFERENCES `sistema_escola`.`tbl_user` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
+  
     FOREIGN KEY (`fk_rua`)
     REFERENCES `sistema_escola`.`tbl_rua` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -432,8 +416,7 @@ DROP TABLE IF EXISTS `sistema_escola`.`tbl_tipo_tel` ;
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_tipo_tel` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `tipo_tel` VARCHAR(8) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -447,15 +430,18 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_tel_user` (
   `fk_tipo_tel` INT(11) NOT NULL,
   `numero_tel_user` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
+  
     FOREIGN KEY (`fk_tipo_tel`)
     REFERENCES `sistema_escola`.`tbl_tipo_tel` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
+  
     FOREIGN KEY (`fk_user_tel`)
     REFERENCES `sistema_escola`.`tbl_user` (`id`)
     ON DELETE CASCADE
-    ON UPDATE CASCADE)
-;
+    ON UPDATE CASCADE);
 
 
 -- -----------------------------------------------------
@@ -464,37 +450,38 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_tel_user` (
 DROP TABLE IF EXISTS `sistema_escola`.`tbl_nota_disciplina` ;
 
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_nota_disciplina` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nota` DOUBLE NOT NULL,
   `fk_disc_hist` INT NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`fk_disc_hist`)
     REFERENCES `sistema_escola`.`tbl_disc_hist` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
 -- Table `sistema_escola`.`tbl_nivel_formacao`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `sistema_escola`.`tbl_nivel_formacao` ;
+
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_nivel_formacao` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nivel` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
 -- Table `sistema_escola`.`tbl_nome_formacao`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `sistema_escola`.`tbl_nome_formacao` ;
+
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_nome_formacao` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
-;
+  PRIMARY KEY (`id`));
 
 
 -- -----------------------------------------------------
@@ -503,24 +490,29 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_nome_formacao` (
 DROP TABLE IF EXISTS `sistema_escola`.`tbl_formacao_funcionario` ;
 
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_formacao_funcionario` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `fk_funcionario` INT NOT NULL,
   `fk_nivel_formacao` INT NOT NULL,
   `fk_nome_formacao` INT NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
+  
+  
     FOREIGN KEY (`fk_funcionario`)
     REFERENCES `sistema_escola`.`tbl_funcionario` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  
     FOREIGN KEY (`fk_nivel_formacao`)
     REFERENCES `sistema_escola`.`tbl_nivel_formacao` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
+  
     FOREIGN KEY (`fk_nome_formacao`)
     REFERENCES `sistema_escola`.`tbl_nome_formacao` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
 -- -----------------------------------------------------
@@ -533,28 +525,117 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_frequencia_disciplina` (
   `frequencia` TINYINT NOT NULL,
   `fk_disc_hist` INT NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`fk_disc_hist`)
     REFERENCES `sistema_escola`.`tbl_disc_hist` (`id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
+    ON UPDATE NO ACTION);
 
 
-<<<<<<< HEAD
 -- -----------------------------------------------------
--- Table `Escola`.`tbl_login`
+-- Table `sistema_escola`.`tbl_login`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `Escola`.`tbl_login` ;
+DROP TABLE IF EXISTS `sistema_escola`.`tbl_login` ;
 
-CREATE TABLE IF NOT EXISTS `Escola`.`tbl_login` (
+CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_login` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
   `passwd` VARCHAR(45) NOT NULL,
   `ativo` TINYINT(1) NOT NULL,
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`),
+  
+  
     FOREIGN KEY (`fk_usuario`)
-    REFERENCES `Escola`.`tbl_Usuario` (`id`)
+    REFERENCES `sistema_escola`.`tbl_user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+-- -----------------------------------------------------
+-- Table `sistema_escola`.`tbl_grade`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sistema_escola`.`tbl_grade` ;
+
+CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_grade` (
+  `ano` CHAR(4) NOT NULL,
+  `fk_curso` INT NOT NULL,
+  `fk_disciplina` INT NOT NULL,
+  PRIMARY KEY (`ano`, `fk_curso`),
+      
+    FOREIGN KEY (`fk_curso`)
+    REFERENCES `sistema_escola`.`tbl_cursos` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  
+    FOREIGN KEY (`fk_disciplina`)
+    REFERENCES `sistema_escola`.`tbl_disciplina` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ;
+
+
+-- -----------------------------------------------------
+-- Table `sistema_escola`.`tbl_aluno_grade`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sistema_escola`.`tbl_aluno_grade` ;
+
+CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno_grade` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `fk_ano_grade` CHAR(4) NOT NULL,
+  `fk_curso_grade` INT NOT NULL,
+  `fk_historico` INT NOT NULL,
+  PRIMARY KEY (`id`),
+        
+    FOREIGN KEY (`fk_ano_grade`)
+    REFERENCES `sistema_escola`.`tbl_grade` (`ano`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  
+    FOREIGN KEY (`fk_historico`)
+    REFERENCES `sistema_escola`.`tbl_historico` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  
+    FOREIGN KEY (`fk_curso_grade`)
+    REFERENCES `sistema_escola`.`tbl_grade` (`fk_curso`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
+
+
+-- -----------------------------------------------------
+-- Table `sistema_escola`.`tbl_permissao`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sistema_escola`.`tbl_permissao` ;
+
+CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_permissao` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nome_permissao` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+;
+
+
+-- -----------------------------------------------------
+-- Table `sistema_escola`.`tbl_user_permissao`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sistema_escola`.`tbl_user_permissao` ;
+
+CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_user_permissao` (
+  `id` INT NOT NULL,
+  `fk_permissao` INT NOT NULL,
+  `fk_user` INT NOT NULL,
+  PRIMARY KEY (`id`),
+      
+    FOREIGN KEY (`fk_permissao`)
+    REFERENCES `sistema_escola`.`tbl_permissao` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  
+    FOREIGN KEY (`fk_user`)
+    REFERENCES `sistema_escola`.`tbl_user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ;
+

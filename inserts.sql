@@ -203,16 +203,16 @@ values
 
 insert into tbl_rua
 values
-(null, 'Inpetor Monônio Saideira',1,1,1),	-- 1
-(null, 'Manjedoura',2,4,2),								-- 2
-(null, 'Sengós',5,5,5),										-- 3
-(null, 'No Meio',8,2,8),									-- 4
-(null, 'Star Wars IV',16,3,16),						-- 5
-(null, 'Gente Boa',14,3,14),							-- 6
-(null, 'Ilha Paraíso',15,4,15),						-- 7
-(null, 'No Meio',17,1,17),								-- 8
-(null, 'Abrigo',18,1,18),									-- 9
-(null, 'Sendor',19,19);										-- 10
+(null, 'Inpetor Monônio Saideira', 1, 1, 1),	-- 1
+(null, 'Manjedoura', 2, 4, 2),								-- 2
+(null, 'Sengós', 5, 5, 5),										-- 3
+(null, 'No Meio', 8, 2, 8),									-- 4
+(null, 'Star Wars IV', 16, 3, 16),						-- 5
+(null, 'Gente Boa', 14, 3, 14),							-- 6
+(null, 'Ilha Paraíso', 15, 4, 15),						-- 7
+(null, 'No Meio', 17, 1, 17),								-- 8
+(null, 'Abrigo', 18, 1, 18),									-- 9
+(null, 'Sendor', 19, 2, 19);										-- 10
 
 insert into tbl_end
 values
@@ -235,8 +235,7 @@ values
 (null, 'Bacharelado'),
 (null, 'Mestrado'),
 (null, 'Doutorado'),
-(null, 'Licenciatura'),
-(null, 'Colegiado');
+(null, 'Licenciatura');
 
 insert into tbl_nome_formacao
 values
