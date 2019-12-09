@@ -68,7 +68,6 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno` (
   `matricula` INT(11) NOT NULL AUTO_INCREMENT,
   `fk_user_aluno` INT(11) NOT NULL,
   `fk_curso_aluno` INT(11) NOT NULL,
-  `fk_turma_aluno` INT(11) NOT NULL,
   `ano_inicio` INT(11) NOT NULL,
   PRIMARY KEY (`matricula`),
   

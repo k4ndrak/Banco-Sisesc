@@ -13,11 +13,6 @@ insert into tbl_cursos values
 	(null, 3, 'Artes Visuais', 'AV') -- 6
 	;
 
-insert into tbl_turmas values
-	(null, 1, 30, '7º', '2017-03-01', '2021-07-01'),
-	(null, 2, 30, '3º', '2019-03-01', '2023-08-01'),
-	(null, 3, 30, '5º', '2018-03-01', '2022-06-01')
-	;
 
 insert into tbl_user values
 	-- ALUNOS --
@@ -36,12 +31,12 @@ insert into tbl_user values
 
  -- ALUNOS --
 insert into tbl_aluno values
-	(null, 1, 1, 1, '2017'),
-	(null, 2, 1, 1, '2017'),
-	(null, 3, 3, 2, '2018'),
-	(null, 4, 3, 2, '2018'),
-	(null, 5, 3, 3, '2019'),
-	(null, 6, 2, 3, '2019')
+	(null, 1, 1, '2017'),
+	(null, 2, 1, '2017'),
+	(null, 3, 3, '2018'),
+	(null, 4, 3, '2018'),
+	(null, 5, 3, '2019'),
+	(null, 6, 2, '2019')
 	;
 
 -- FUNCIONARIOS --
@@ -102,12 +97,12 @@ insert into tbl_semestre values
 
 -- OFERTA DISCIPLINAS NO SEMESTRE --
 insert into tbl_disc_semestre values
-	(null, 1, 1),
-	(null, 2, 2),
-	(null, 3, 1),
-	(null, 4, 2),
-	(null, 5, 4),
-	(null, 6, 5)
+	(null, 1, 1, 2),
+	(null, 2, 2, 2),
+	(null, 3, 1, 1),
+	(null, 4, 2, 1),
+	(null, 5, 4, 3),
+	(null, 6, 5, 4)
 	;
 
 -- MATRICULA ALUNO NUMA DISCIPLINA --

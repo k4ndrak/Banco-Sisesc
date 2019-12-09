@@ -12,5 +12,5 @@ drop trigger if exists trg_cria_login;
 	delimiter $$
 	create trigger trg_cria_login after insert on tbl_user
 		for each row
-			insert into tbl_login values (null, new.nome_user, md5(new.cpf_user), 1, new.id_user);
+			insert into tbl_login values (null, new.nome_user, md5(new.cpf_user), 1, new.id);
 $$
