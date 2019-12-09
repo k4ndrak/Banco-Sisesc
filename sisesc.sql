@@ -539,3 +539,21 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_frequencia_disciplina` (
 ;
 
 
+<<<<<<< HEAD
+-- -----------------------------------------------------
+-- Table `Escola`.`tbl_login`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `Escola`.`tbl_login` ;
+
+CREATE TABLE IF NOT EXISTS `Escola`.`tbl_login` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user` VARCHAR(45) NOT NULL,
+  `passwd` VARCHAR(45) NOT NULL,
+  `ativo` TINYINT(1) NOT NULL,
+  `fk_usuario` INT NOT NULL,
+  PRIMARY KEY (`id`),
+    FOREIGN KEY (`fk_usuario`)
+    REFERENCES `Escola`.`tbl_Usuario` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+;
