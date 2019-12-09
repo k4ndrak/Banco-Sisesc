@@ -232,42 +232,24 @@ values
 -- -----------------------------------------------------
 insert into tbl_nivel_formacao
 values
-(null, 'Superior'),
-(null, 'Tecnico'),
-(null, 'Médio');
-
-insert into tbl_nome_formacao
-values
 (null, 'Bacharelado'),
 (null, 'Mestrado'),
 (null, 'Doutorado'),
 (null, 'Licenciatura'),
-(null, 'Colegiado'); -- ?
+(null, 'Colegiado');
+
+insert into tbl_nome_formacao
+values
+(null, 'Ciência da Computação'),
+(null, 'Engenharia Elétrica'),
+(null, 'Relações Internacionais'),
+(null, 'Ciências Sociais'),
+(null, 'Letras - Português/Inglês'),
+(null, 'Artes Visuais');
 
 insert into tbl_formacao_funcionario
 values
-(null, 1, 1, 1),
-(null, 2, 1, 2),
+(null, 1, 2, 2),
+(null, 2, 1, 3),
 (null, 3, 1, 3),
 (null, 4, 1, 4);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
