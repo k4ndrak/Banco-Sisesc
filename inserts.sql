@@ -46,28 +46,28 @@ insert into tbl_aluno values
 
 -- FUNCIONARIOS --
 insert into tbl_funcionario values
-	(null, 7),
-	(null, 8),
-	(null, 9),
-	(null, 10)
+	(null, 7), -- 1
+	(null, 8), -- 2
+	(null, 9), -- 3
+	(null, 10) -- 4
 	;
 
 -- PROFESSORES --
 insert into tbl_professor values
-	(null, 1, 1, 1),
-	(null, 2, 1, 1),
-	(null, 3, 2, 1),
-	(null, 3, 2, 1)
+	(null, 1, 1, 1), -- 1
+	(null, 2, 1, 1), -- 2
+	(null, 3, 2, 1), -- 3
+	(null, 3, 2, 1)  -- 4
 	;
 
 -- DISCIPLINAS --
 insert into tbl_disciplina values
-	(null, 0, 'Banco de Dados I', 90, 30),
-	(null, 1, 'Banco de Dados II', 90, 30),
-	(null, 0, 'Arquitetura de Computadores', 60, 30),
-	(null, 0, 'Organização de Computadores', 60, 30),
-	(null, 0, 'Teoria das Relações Internacionais', 90, 30),
-	(null, 0, 'Política Internacional', 60, 30)
+	(null, 0, 'Banco de Dados I', 90, 30), -- 1
+	(null, 1, 'Banco de Dados II', 90, 30), -- 2
+	(null, 0, 'Arquitetura de Computadores', 60, 30), -- 3
+	(null, 0, 'Organização de Computadores', 60, 30), -- 4
+	(null, 0, 'Teoria das Relações Internacionais', 90, 30), -- 5
+	(null, 0, 'Política Internacional', 60, 30) -- 6
 	;
 
 insert into tbl_curso_discip values
@@ -79,8 +79,14 @@ insert into tbl_curso_discip values
 	(null, 3, 6)
 	;
 
-
-
+insert into tbl_prof_disc values
+	(null, 1, 3),
+	(null, 1, 4),
+	(null, 2, 1),
+	(null, 2, 2),
+	(null, 3, 5),
+	(null, 4, 6)
+	;
 
 
 
