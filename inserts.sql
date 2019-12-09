@@ -5,12 +5,12 @@ insert into tbl_colegiado values
 	;
 
 insert into tbl_cursos values
-	(null, 1, 'Ciência da Computação', 'CC'),
-	(null, 1, 'Engenharia Elétrica', 'EE'),
-	(null, 2, 'Relações Internacionais', 'RI'),
-	(null, 2, 'Ciências Sociais', 'CS'),
-	(null, 3, 'Letras - Português/Inglês', 'LPI'),
-	(null, 3, 'Artes Visuais', 'AV')
+	(null, 1, 'Ciência da Computação', 'CC'), -- 1
+	(null, 1, 'Engenharia Elétrica', 'EE'), -- 2
+	(null, 2, 'Relações Internacionais', 'RI'), -- 3
+	(null, 2, 'Ciências Sociais', 'CS'), -- 4
+	(null, 3, 'Letras - Português/Inglês', 'LPI'), -- 5
+	(null, 3, 'Artes Visuais', 'AV') -- 6
 	;
 
 insert into tbl_turmas values
@@ -38,10 +38,10 @@ insert into tbl_user values
 insert into tbl_aluno values
 	(null, 1, 1, 1, '2017'),
 	(null, 2, 1, 1, '2017'),
-	(null, 3, 2, 2, '2018'),
-	(null, 4, 2, 2, '2018'),
+	(null, 3, 3, 2, '2018'),
+	(null, 4, 3, 2, '2018'),
 	(null, 5, 3, 3, '2019'),
-	(null, 6, 3, 3, '2019')
+	(null, 6, 2, 3, '2019')
 	;
 
 -- FUNCIONARIOS --
@@ -70,6 +70,7 @@ insert into tbl_disciplina values
 	(null, 0, 'Política Internacional', 60, 30) -- 6
 	;
 
+-- VINCULA DISCIPLINA A UM CURSO --
 insert into tbl_curso_discip values
 	(null, 1, 1),
 	(null, 1, 2),
@@ -79,6 +80,7 @@ insert into tbl_curso_discip values
 	(null, 3, 6)
 	;
 
+-- VINCULA PROFESSOR A UMA DISCIPLINA --
 insert into tbl_prof_disc values
 	(null, 1, 3),
 	(null, 1, 4),
@@ -88,8 +90,37 @@ insert into tbl_prof_disc values
 	(null, 4, 6)
 	;
 
+-- INSERE SEMESTRE --
+insert into tbl_semestre values
+	(null, '2017.1', '2017-02-01', '2017-06-30'),
+	(null, '2017.2', '2017-08-03', '2017-12-14'),
+	(null, '2018.1', '2018-02-14', '2018-07-03'),
+	(null, '2018.2', '2018-08-07', '2018-12-19'),
+	(null, '2019.1', '2019-02-07', '2019-06-28'),
+	(null, '2019.2', '2019-07-29', '2019-12-10')
+	;
 
+-- OFERTA DISCIPLINAS NO SEMESTRE --
+insert into tbl_disc_semestre values
+	(null, 1, 1),
+	(null, 2, 2),
+	(null, 3, 1),
+	(null, 4, 2),
+	(null, 5, 4),
+	(null, 6, 5)
+	;
 
+-- MATRICULA ALUNO NUMA DISCIPLINA --
+insert into tbl_disc_hist values
+	(null, 0, 1, 1),
+	(null, 1, 3, 1),
+	(null, 1, 4, 1),
+	(null, 1, 2, 2),
+	(null, 0, 3, 2),
+	(null, 1, 5, 3),
+	(null, 0, 6, 3),
+	(null, 0, 6, 5)
+	;
 
 
 

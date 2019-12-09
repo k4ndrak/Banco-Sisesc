@@ -334,6 +334,7 @@ DROP TABLE IF EXISTS `sistema_escola`.`tbl_disc_hist` ;
 
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_disc_hist` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `status` TINYINT(1) NOT NULL,
   `fk_disc_semestre` INT(11) NOT NULL,
   `fk_hist` INT(11) NOT NULL,
   PRIMARY KEY (`id`),
