@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno` (
   `fk_curso_aluno` INT(11) NOT NULL,
   `ano_inicio` INT(11) NOT NULL,
   `status_matricula` TINYINT(1) NOT NULL,
+  status_matricula TINYINT(1) NOT NULL,
   PRIMARY KEY (`matricula`),
   
   
