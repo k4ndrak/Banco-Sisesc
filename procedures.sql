@@ -1,5 +1,8 @@
 drop procedure if exists proc_turma_completa;
-
+drop procedure if exists proc_trancar_matricula;
+drop procedure if exists proc_destrancar_matricula;
+drop procedure if exists proc_cadastrar_aluno;
+drop procedure if exists proc_cadastrar_professor;
 delimiter //
 create procedure proc_turma_completa(disc_semestre int)
 begin 	
@@ -13,3 +16,40 @@ from tbl_disc_semestre
     inner join view_dados_aluno on view_dados_aluno.Matricula = tbl_historico.fk_aluno_hist
     where tbl_disc_semestre.id = disc_semestre;
 end //
+delimiter;
+
+delimiter $
+create procedure proc_trancar_matricula(matricula int)
+begin
+	update tbl_aluno set status_matricula = 0 where tbl_aluno.matricula = matricula;
+end $
+delimiter;
+
+delimiter $$
+create procedure proc_destrancar_matricula(matricula int)
+begin
+	update tbl_aluno set status_matricula = 1 where tbl_aluno.matricula = matricula;
+end $$
+
+delimiter;
+
+delimiter %
+create procedure proc_cadastrar_aluno(nome varchar(30) , sobrenome varchar(30), cpf varchar(11), sexo char(1), pai_user varchar(60), mae_user varchar(60), email varchar(80), fk_curso int, ano_inicio int(11))
+begin
+	declare id_user int;
+	insert into tbl_user values(null, nome, sobrenome, cpf, 1, sexo, pai_user, mae_user, email);
+	select max(id) into id_user from tbl_user;
+    insert into tbl_aluno values (null, id_user, fk_curso, ano_inicio, 1);
+end %
+
+delimiter %
+create procedure proc_cadastrar_professor(nome varchar(30) , sobrenome varchar(30), cpf varchar(11), sexo char(1), pai_user varchar(60), mae_user varchar(60), email varchar(80), fk_colegiado int)
+begin
+	declare id_user, id_funcionario int;
+	insert into tbl_user values(null, nome, sobrenome, cpf, 1, sexo, pai_user, mae_user, email);
+	select max(id) into id_user from tbl_user;
+    insert into tbl_funcionario values (null, id_user);
+    select max(id) into id_funcionario from tbl_funcionario;
+    insert into tbl_professor values( null, id_funcionario, fk_colegiado, 1);
+end %
+
