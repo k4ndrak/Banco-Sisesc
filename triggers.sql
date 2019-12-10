@@ -1,12 +1,11 @@
 drop trigger if exists trg_cria_historico;
-drop trigger if exists trg_valida_matricula;
 
 delimiter $$
 create trigger trg_cria_historico after insert on tbl_aluno
 	for each row
 		insert into tbl_historico values (null, new.matricula, curdate(), null);
 $$
-
+delimiter ;
 
 drop trigger if exists trg_cria_login;
 
@@ -15,6 +14,9 @@ create trigger trg_cria_login after insert on tbl_user
 	for each row
 		insert into tbl_login values (null, new.nome_user, md5(new.cpf_user), new.id);
 $$
+delimiter ;
+
+drop trigger if exists trg_valida_matricula;
 
 delimiter $$
 create trigger trg_valida_matricula before insert on tbl_disc_hist
@@ -82,5 +84,19 @@ create trigger trg_valida_matricula before insert on tbl_disc_hist
 			signal sqlstate '45000'	SET MESSAGE_TEXT = 'Matrícula do aluno';
 		end if;
 
+	end
+$$
+delimiter ;
+
+
+drop trigger if exists trg_data_inicio_aluno;
+
+delimiter $$
+create trigger trg_data_inicio_aluno before insert on tbl_aluno
+for each row
+	begin
+		if (new.ano_inicio is null) then
+			set new.ano_inicio = year(curdate());
+		end if;
 	end
 $$

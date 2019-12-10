@@ -14,35 +14,35 @@ insert into tbl_cursos values
 	;
 
 
-insert into tbl_user values
+insert into tbl_user(nome_user, sobrenome_user, cpf_user, sexo_user, pai_user, mae_user, email_user) values
 	-- ALUNOS --
-	(null, 'Andre', 'Santos', '11111111111', 1, 'B', 'Pai Andre', 'Mae Andre', 'dre@gmail.com'), -- 1
-	(null, 'Jao', 'Santana', '22222222222', 1, 'M', 'Pai Jao', 'Mae Jao', 'jao@gmail.com'), -- 2
-	(null, 'Carol', 'Ine', '33333333333', 1, 'F', 'Pai Carol', 'Mae Carol', 'carol@gmail.com'), -- 3
-	(null, 'Marcos', 'Oliveira', '44444444444', 1, 'M', 'Pai Marcos', 'Mae Marcos', 'marcos@gmail.com'), -- 4
-	(null, 'Elo', 'Ana', '55555555555', 1, 'M', 'Pai Elo', 'Mae Elo', 'elo@gmail.com'), -- 5
-	(null, 'Flavio', 'Cutrim', '66666666666', 1, 'M', 'Pai Flavio', 'Mae Flavio', 'flavio@gmail.com'), -- 6
+	('Andre', 'Santos', '11111111111', 'B', 'Pai Andre', 'Mae Andre', 'dre@gmail.com'), -- 1
+	('Jao', 'Santana', '22222222222', 'M', 'Pai Jao', 'Mae Jao', 'jao@gmail.com'), -- 2
+	('Carol', 'Ine', '33333333333', 'F', 'Pai Carol', 'Mae Carol', 'carol@gmail.com'), -- 3
+	('Marcos', 'Oliveira', '44444444444', 'M', 'Pai Marcos', 'Mae Marcos', 'marcos@gmail.com'), -- 4
+	('Elo', 'Ana', '55555555555', 'M', 'Pai Elo', 'Mae Elo', 'elo@gmail.com'), -- 5
+	('Flavio', 'Cutrim', '66666666666', 'M', 'Pai Flavio', 'Mae Flavio', 'flavio@gmail.com'), -- 6
 	-- PROFESSORES -- 
-	(null, 'Marco', 'Leal', '77777777777', 1, 'M', 'Pai Leal', 'Mae Leal', 'leal@gmail.com'), -- 7
-	(null, 'Emanuel', 'Nsei', '88888888888', 1, 'M', 'Pai Emanuel', 'Mae Emanuel', 'emanuel@gmail.com'), -- 8
-	(null, 'Luedi', 'Nsei', '99999999999', 1, 'M', 'Pai Luedi', 'Mae Luedi', 'luedi@gmail.com'), -- 9
-	(null, 'Lourrene', 'Nsei', '12312312312', 1, 'F', 'Pai Lourrene', 'Mae Lourrene', 'lourrene@gmail.com') -- 10
+	('Marco', 'Leal', '77777777777', 'M', 'Pai Leal', 'Mae Leal', 'leal@gmail.com'), -- 7
+	('Emanuel', 'Nsei', '88888888888', 'M', 'Pai Emanuel', 'Mae Emanuel', 'emanuel@gmail.com'), -- 8
+	('Luedi', 'Nsei', '99999999999', 'M', 'Pai Luedi', 'Mae Luedi', 'luedi@gmail.com'), -- 9
+	('Lourrene', 'Nsei', '12312312312', 'F', 'Pai Lourrene', 'Mae Lourrene', 'lourrene@gmail.com') -- 10
 	;
 
  -- ALUNOS --
-insert into tbl_aluno values
-	(null, 1, 1, '2017', 1),
-	(null, 2, 1, '2017', 1),
-	(null, 3, 3, '2018', 1),
-	(null, 4, 3, '2018', 0),
-	(null, 5, 3, '2019', 1),
-	(null, 6, 2, '2019', 1),
-    (null, 1, 1, '2017', 1),
-    (null, 2, 1, '2017', 1),
-    (null, 3, 3, '2018', 1),
-    (null, 4, 3, '2018', 0),
-    (null, 5, 3, '2019', 1),
-    (null, 6, 2, '2019', 1)
+insert into tbl_aluno(fk_user_aluno, fk_curso_aluno) values
+	(1, 1),
+	(2, 1),
+	(3, 3),
+	(4, 3),
+	(5, 3),
+	(6, 2),
+    (1, 1),
+    (2, 1),
+    (3, 3),
+    (4, 3),
+    (5, 3),
+    (6, 2)
     ;
 
 -- FUNCIONARIOS --
