@@ -31,12 +31,12 @@ insert into tbl_user values
 
  -- ALUNOS --
 insert into tbl_aluno values
-	(null, 1, 1, '2017'),
-	(null, 2, 1, '2017'),
-	(null, 3, 3, '2018'),
-	(null, 4, 3, '2018'),
-	(null, 5, 3, '2019'),
-	(null, 6, 2, '2019')
+	(null, 1, 1, '2017', 1),
+	(null, 2, 1, '2017', 1),
+	(null, 3, 3, '2018', 1),
+	(null, 4, 3, '2018', 0),
+	(null, 5, 3, '2019', 1),
+	(null, 6, 2, '2019', 1)
 	;
 
 -- FUNCIONARIOS --

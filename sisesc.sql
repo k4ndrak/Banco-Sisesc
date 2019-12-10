@@ -69,6 +69,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno` (
   `fk_user_aluno` INT(11) NOT NULL,
   `fk_curso_aluno` INT(11) NOT NULL,
   `ano_inicio` INT(11) NOT NULL,
+  `status_matricula` TINYINT(1) NOT NULL,
   PRIMARY KEY (`matricula`),
   
   
@@ -334,7 +335,7 @@ DROP TABLE IF EXISTS `sistema_escola`.`tbl_logradouro` ;
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_logradouro` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `LOGRAD_DESCRICAO` VARCHAR(15) NOT NULL,
-  `LOGRAD` VARCHAR(7) NOT NULL,
+  `LOGRAD` VARCHAR(7),
   PRIMARY KEY (`id`));
 
 
@@ -391,7 +392,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_end` (
   `fk_user_end` INT(11) NOT NULL,
   `fk_rua` INT(11) NOT NULL,
   `n_casa` VARCHAR(15) NOT NULL,
-  `complemento` VARCHAR(20) NOT NULL,
+  `complemento` VARCHAR(20),
   PRIMARY KEY (`id`),
   
   
@@ -541,7 +542,6 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_login` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user` VARCHAR(45) NOT NULL,
   `passwd` VARCHAR(45) NOT NULL,
-  `ativo` TINYINT(1) NOT NULL,
   `fk_usuario` INT NOT NULL,
   PRIMARY KEY (`id`),
   
