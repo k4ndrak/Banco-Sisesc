@@ -551,59 +551,6 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_login` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
-
--- -----------------------------------------------------
--- Table `sistema_escola`.`tbl_grade`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sistema_escola`.`tbl_grade` ;
-
-CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_grade` (
-  `ano` CHAR(4) NOT NULL,
-  `fk_curso` INT NOT NULL,
-  `fk_disciplina` INT NOT NULL,
-  PRIMARY KEY (`ano`, `fk_curso`),
-      
-    FOREIGN KEY (`fk_curso`)
-    REFERENCES `sistema_escola`.`tbl_cursos` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  
-    FOREIGN KEY (`fk_disciplina`)
-    REFERENCES `sistema_escola`.`tbl_disciplina` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
-
-
--- -----------------------------------------------------
--- Table `sistema_escola`.`tbl_aluno_grade`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `sistema_escola`.`tbl_aluno_grade` ;
-
-CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno_grade` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `fk_ano_grade` CHAR(4) NOT NULL,
-  `fk_curso_grade` INT NOT NULL,
-  `fk_historico` INT NOT NULL,
-  PRIMARY KEY (`id`),
-        
-    FOREIGN KEY (`fk_ano_grade`)
-    REFERENCES `sistema_escola`.`tbl_grade` (`ano`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  
-    FOREIGN KEY (`fk_historico`)
-    REFERENCES `sistema_escola`.`tbl_historico` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  
-    FOREIGN KEY (`fk_curso_grade`)
-    REFERENCES `sistema_escola`.`tbl_grade` (`fk_curso`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-;
-
-
 -- -----------------------------------------------------
 -- Table `sistema_escola`.`tbl_permissao`
 -- -----------------------------------------------------
@@ -614,7 +561,6 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_permissao` (
   `nome_permissao` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`))
 ;
-
 
 -- -----------------------------------------------------
 -- Table `sistema_escola`.`tbl_user_permissao`
