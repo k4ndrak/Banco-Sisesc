@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_user` (
   `id` INT(11) NOT NULL AUTO_INCREMENT,
   `nome_user` VARCHAR(30) NOT NULL,
   `sobrenome_user` VARCHAR(30) NOT NULL,
-  `cpf_user` VARCHAR(11) NOT NULL,
+  `cpf_user` VARCHAR(11) NOT NULL UNIQUE,
   `status_user` TINYINT(1) NOT NULL default 1,
   `sexo_user` CHAR(1) NOT NULL,
   `pai_user` VARCHAR(60) NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_aluno` (
   `fk_user_aluno` INT(11) NOT NULL,
   `fk_curso_aluno` INT(11) NOT NULL,
   `ano_inicio` INT(4) NULL DEFAULT NULL,
-  `status_matricula` TINYINT(1) NOT NULL DEFAULT 1,
+  `status_matricula` TINYINT(1) NOT NULL DEFAULT 3,
   PRIMARY KEY (`matricula`),  
     FOREIGN KEY (`fk_curso_aluno`)
     REFERENCES `sistema_escola`.`tbl_cursos` (`id`)
@@ -175,7 +175,7 @@ DROP TABLE IF EXISTS `sistema_escola`.`tbl_funcionario` ;
 
 CREATE TABLE IF NOT EXISTS `sistema_escola`.`tbl_funcionario` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `fk_user` INT NOT NULL,
+  `fk_user` INT NOT NULL UNIQUE,
   PRIMARY KEY (`id`),
   
   

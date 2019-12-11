@@ -36,13 +36,7 @@ insert into tbl_aluno(fk_user_aluno, fk_curso_aluno) values
 	(3, 3),
 	(4, 3),
 	(5, 3),
-	(6, 2),
-    (1, 1),
-    (2, 1),
-    (3, 3),
-    (4, 3),
-    (5, 3),
-    (6, 2)
+	(6, 2)
     ;
 
 -- FUNCIONARIOS --
@@ -102,27 +96,89 @@ insert into tbl_semestre values
 	;
 
 -- OFERTA DISCIPLINAS NO SEMESTRE --
-insert into tbl_disc_semestre values
-	(null, 1, 1, 2),
-	(null, 2, 2, 2),
-	(null, 3, 1, 1),
-	(null, 4, 2, 1),
-	(null, 5, 4, 3),
-	(null, 6, 5, 4)
+insert into tbl_disc_semestre(fk_disc, fk_semestre, fk_professor) values
+	(1, 1, 2),
+	(2, 2, 2),
+	(3, 1, 1),
+	(4, 2, 1),
+	(5, 4, 3),
+	(6, 5, 4)
 	;
 
 -- MATRICULA ALUNO NUMA DISCIPLINA --
 insert into tbl_disc_hist values
-	(null, 0, 1, 1),
-	(null, 1, 3, 1),
-	(null, 1, 4, 1),
-	(null, 1, 2, 2),
-	(null, 0, 3, 2),
-	(null, 1, 5, 3),
-	(null, 0, 6, 3),
-	(null, 0, 6, 5)
+	(null, 0, 1, 1), -- 1
+	(null, 1, 3, 1), -- 2
+	(null, 1, 4, 1), -- 3
+	(null, 1, 2, 2), -- 4
+	(null, 0, 3, 2), -- 5
+	(null, 1, 5, 3), -- 6
+	(null, 0, 6, 3), -- 7
+	(null, 0, 6, 5)  -- 8
 	;
-	
+
+-- INSERE FREQUENCIA --
+insert into tbl_frequencia_disciplina values
+	(null, 2, 1),
+	(null, 2, 1),
+	(null, 0, 1),
+	(null, 2, 1),
+	(null, 2, 2),
+	(null, 0, 2),
+	(null, 2, 2),
+	(null, 0, 3),
+	(null, 2, 3),
+	(null, 1, 3),
+	(null, 2, 3),
+	(null, 1, 4),
+	(null, 0, 4),
+	(null, 2, 4),
+	(null, 2, 5),
+	(null, 2, 5),
+	(null, 2, 5),
+	(null, 1, 5),
+	(null, 0, 6),
+	(null, 0, 6),
+	(null, 0, 6),
+	(null, 1, 7),
+	(null, 0, 7),
+	(null, 2, 8),
+	(null, 2, 8),
+	(null, 2, 8),
+	(null, 2, 8),
+	(null, 2, 8)
+	;
+
+-- INSERE NOTA --
+insert into tbl_nota_disciplina values
+	(null, 3.4, 1),
+	(null, 5, 1),
+	(null, 7, 1),
+	(null, 10, 2),
+	(null, 6, 2),
+	(null, 8.2, 2),
+	(null, 9, 3),
+	(null, 0, 3),
+	(null, 5.5, 3),
+	(null, 2.3, 4),
+	(null, 3.1, 4),
+	(null, 4.9, 4),
+	(null, 6.6, 5),
+	(null, 7, 5),
+	(null, 7.5, 5),
+	(null, 6.6, 6),
+	(null, 3.8, 6),
+	(null, 5.7, 6),
+	(null, 9, 7),
+	(null, 9.5, 7),
+	(null, 8.8, 7),
+	(null, 10, 8),
+	(null, 10, 8),
+	(null, 10, 8)
+	;
+
+
+
 -- -----------------------------------------------------
 -- inserindo enderecos
 -- -----------------------------------------------------
