@@ -203,7 +203,7 @@ for each row
 $$
 delimiter ;
 
--- Verifica se o usuário já é um funcionário
+-- Verifica se a formação do funcionário já existe
 drop trigger if exists trg_valida_formacao_funcionario;
 delimiter $$
 create trigger trg_valida_formacao_funcionario before insert on tbl_formacao_funcionario
