@@ -15,7 +15,7 @@ create or replace view view_disciplinas_professores as
 	join tbl_cursos on tbl_curso_discip.fk_curso = tbl_cursos.id
 	join tbl_colegiado on tbl_cursos.fk_coleg_curso = tbl_colegiado.id;
 
-create or replace view view_alunos_p_curso as
+create or replace view view_alunos_por_curso as
 	select nome_curso as Curso, count(fk_curso_aluno) as Alunos from tbl_cursos
 	left join tbl_aluno on tbl_cursos.id = tbl_aluno.fk_curso_aluno group by fk_curso_aluno order by Alunos desc;
 
