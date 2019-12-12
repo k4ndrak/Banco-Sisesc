@@ -1,19 +1,44 @@
-create or replace view view_dados_aluno as
-	select tbl_user.id as id_user, matricula as Matricula, fn_nome_completo(tbl_user.id) as Nome, nome_curso as Curso, fn_situacao_aluno(status_user) as Situacao,
-		cpf_user as CPF, sexo_user as Sexo, pai_user as Pai, mae_user as Mae,
-		email_user as 'email' from tbl_aluno inner join tbl_user on tbl_aluno.fk_user_aluno = tbl_user.id
-		join tbl_cursos on tbl_aluno.fk_curso_aluno = tbl_cursos.id;
+CREATE OR REPLACE VIEW view_dados_aluno AS
+    SELECT 
+        tbl_user.id AS id_user,
+        matricula AS Matricula,
+        FN_NOME_COMPLETO(tbl_user.id) AS Nome,
+        nome_curso AS Curso,
+        FN_SITUACAO_ALUNO(status_user) AS Situacao,
+        cpf_user AS CPF,
+        sexo_user AS Sexo,
+        pai_user AS Pai,
+        mae_user AS Mae,
+        email_user AS 'email'
+    FROM
+        tbl_aluno
+            INNER JOIN
+        tbl_user ON tbl_aluno.fk_user_aluno = tbl_user.id
+            JOIN
+        tbl_cursos ON tbl_aluno.fk_curso_aluno = tbl_cursos.id;
 
-create or replace view view_disciplinas_professores as
-	select fn_nome_completo(tbl_user.id) as Nome, nome_discipl as Disciplina, nome_curso as Curso,
-	nome_colegiado as Colegiado from tbl_professor
-	inner join tbl_funcionario on tbl_professor.id = tbl_funcionario.id
-	join tbl_user on tbl_funcionario.fk_user = tbl_user.id
-	join tbl_prof_disc on tbl_professor.id = tbl_prof_disc.fk_professor
-	join tbl_disciplina on tbl_prof_disc.fk_discip_prof = tbl_disciplina.id
-	join tbl_curso_discip on tbl_disciplina.id = tbl_curso_discip.fk_discip
-	join tbl_cursos on tbl_curso_discip.fk_curso = tbl_cursos.id
-	join tbl_colegiado on tbl_cursos.fk_coleg_curso = tbl_colegiado.id;
+CREATE OR REPLACE VIEW view_disciplinas_professores AS
+    SELECT 
+        FN_NOME_COMPLETO(tbl_user.id) AS Nome,
+        nome_discipl AS Disciplina,
+        nome_curso AS Curso,
+        nome_colegiado AS Colegiado
+    FROM
+        tbl_professor
+            INNER JOIN
+        tbl_funcionario ON tbl_professor.id = tbl_funcionario.id
+            JOIN
+        tbl_user ON tbl_funcionario.fk_user = tbl_user.id
+            JOIN
+        tbl_prof_disc ON tbl_professor.id = tbl_prof_disc.fk_professor
+            JOIN
+        tbl_disciplina ON tbl_prof_disc.fk_discip_prof = tbl_disciplina.id
+            JOIN
+        tbl_curso_discip ON tbl_disciplina.id = tbl_curso_discip.fk_discip
+            JOIN
+        tbl_cursos ON tbl_curso_discip.fk_curso = tbl_cursos.id
+            JOIN
+        tbl_colegiado ON tbl_cursos.fk_coleg_curso = tbl_colegiado.id;
 
 create or replace view view_alunos_por_curso as
 	select nome_curso as Curso, count(fk_curso_aluno) as Alunos from tbl_cursos
@@ -45,16 +70,43 @@ inner join tbl_aluno on tbl_aluno.matricula = tbl_historico.fk_aluno_hist
 inner join tbl_semestre on tbl_semestre.id = tbl_disc_semestre.fk_semestre
 ;
 
-create or replace view view_frequencias_disciplinas as 
-select 
-tbl_frequencia_disciplina.id, tbl_aluno.matricula, tbl_disc_semestre.id as cod_turma, tbl_disc_hist.id as disc_hist,
-sum(tbl_frequencia_disciplina.frequencia) as frequencia,
-tbl_semestre.nome as semestre
-from tbl_frequencia_disciplina
-inner join tbl_disc_hist on tbl_frequencia_disciplina.fk_disc_hist = tbl_disc_hist.id
-inner join tbl_historico on tbl_disc_hist.fk_hist = tbl_historico.id
-inner join tbl_disc_semestre on tbl_disc_hist.fk_disc_semestre = tbl_disc_semestre.id
-inner join tbl_aluno on tbl_aluno.matricula = tbl_historico.fk_aluno_hist
-inner join tbl_semestre on tbl_semestre.id = tbl_disc_semestre.fk_semestre
-group by disc_hist
+CREATE OR REPLACE VIEW view_frequencias_disciplinas AS
+    SELECT 
+        tbl_frequencia_disciplina.id,
+        tbl_aluno.matricula,
+        tbl_disc_semestre.id AS cod_turma,
+        tbl_disc_hist.id AS disc_hist,
+        SUM(tbl_frequencia_disciplina.frequencia) AS frequencia,
+        tbl_semestre.nome AS semestre
+    FROM
+        tbl_frequencia_disciplina
+            INNER JOIN
+        tbl_disc_hist ON tbl_frequencia_disciplina.fk_disc_hist = tbl_disc_hist.id
+            INNER JOIN
+        tbl_historico ON tbl_disc_hist.fk_hist = tbl_historico.id
+            INNER JOIN
+        tbl_disc_semestre ON tbl_disc_hist.fk_disc_semestre = tbl_disc_semestre.id
+            INNER JOIN
+        tbl_aluno ON tbl_aluno.matricula = tbl_historico.fk_aluno_hist
+            INNER JOIN
+        tbl_semestre ON tbl_semestre.id = tbl_disc_semestre.fk_semestre
+    GROUP BY disc_hist
 ;
+
+CREATE OR REPLACE VIEW view_disciplinas_cursos AS
+    SELECT 
+        tbl_curso_discip.id,
+        nome_curso,
+        fk_curso AS id_curso,
+        tbl_disciplina.id AS id_disciplina,
+        nome_discipl,
+        fk_depende_discipl,
+        carga_hora_disc,
+        num_aluno_disc
+    FROM
+        tbl_curso_discip,
+        tbl_cursos,
+        tbl_disciplina
+    WHERE
+        tbl_curso_discip.fk_discip = tbl_disciplina.id
+            AND tbl_cursos.id = tbl_curso_discip.fk_curso

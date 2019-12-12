@@ -57,21 +57,32 @@ delimiter;
 delimiter &&
 create procedure proc_historico_aluno(matricula_aluno int)
 begin
-	select
-fn_nome_completo(tbl_user.id), tbl_cursos.nome_curso,
-nome_discipl,
-view_notas_disciplinas.semestre, 
-view_notas_disciplinas.cod_turma, frequencia as FREQUENCIA_FINAL,
-avg(view_notas_disciplinas.nota) as NOTA_FINAL
-from view_notas_disciplinas
-inner join view_frequencias_disciplinas on view_notas_disciplinas.disc_hist = view_frequencias_disciplinas.disc_hist
-inner join tbl_aluno on tbl_aluno.matricula = view_notas_disciplinas.matricula
-inner join tbl_user on tbl_user.id = tbl_aluno.fk_user_aluno
-inner join tbl_disc_hist on tbl_disc_hist.id = view_notas_disciplinas.disc_hist
-inner join tbl_disc_semestre on tbl_disc_semestre.id = tbl_disc_hist.fk_disc_semestre
-inner join tbl_curso_discip on tbl_curso_discip.fk_curso = tbl_aluno.fk_curso_aluno
-left join tbl_disciplina on tbl_disciplina.id = tbl_curso_discip.fk_discip
-inner join tbl_cursos on tbl_cursos.id = tbl_aluno.fk_curso_aluno
-where view_notas_disciplinas.matricula = matricula_aluno
-group by view_frequencias_disciplinas.disc_hist;
+SELECT 
+    FN_NOME_COMPLETO(tbl_user.id),
+    tbl_cursos.nome_curso,
+    tbl_disciplina.nome_discipl,
+    view_notas_disciplinas.semestre,
+    view_notas_disciplinas.cod_turma,
+    frequencia AS FREQUENCIA_FINAL,
+    AVG(view_notas_disciplinas.nota) AS NOTA_FINAL
+FROM
+    view_notas_disciplinas
+        INNER JOIN
+    view_frequencias_disciplinas ON view_notas_disciplinas.disc_hist = view_frequencias_disciplinas.disc_hist
+        INNER JOIN
+    tbl_aluno ON tbl_aluno.matricula = view_notas_disciplinas.matricula
+        INNER JOIN
+    tbl_user ON tbl_user.id = tbl_aluno.fk_user_aluno
+        INNER JOIN
+    tbl_disc_hist ON tbl_disc_hist.id = view_notas_disciplinas.disc_hist
+        INNER JOIN
+    tbl_disc_semestre ON tbl_disc_semestre.id = tbl_disc_hist.fk_disc_semestre
+        LEFT JOIN
+    tbl_disciplina ON tbl_disciplina.id = tbl_disc_semestre.fk_disc
+        INNER JOIN
+    tbl_cursos ON tbl_cursos.id = tbl_aluno.fk_curso_aluno
+WHERE
+    view_notas_disciplinas.matricula = 2
+GROUP BY view_frequencias_disciplinas.disc_hist
+ORDER BY semestre;
 end &&
