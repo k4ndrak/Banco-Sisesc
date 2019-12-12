@@ -31,3 +31,30 @@ create or replace view view_endereco as
 
 create or replace view view_aluno_endereco as
 select * from view_dados_aluno, view_endereco where view_dados_aluno.id_user = view_endereco.Usuario;
+
+create or replace view view_notas_disciplinas as 
+select
+tbl_nota_disciplina.id,  
+tbl_aluno.matricula as matricula, tbl_disc_semestre.id as cod_turma, tbl_disc_hist.id as disc_hist, 
+tbl_nota_disciplina.nota, tbl_semestre.nome as semestre
+from tbl_nota_disciplina
+inner join tbl_disc_hist on tbl_nota_disciplina.fk_disc_hist = tbl_disc_hist.id
+inner join tbl_historico on tbl_disc_hist.fk_hist = tbl_historico.id
+inner join tbl_disc_semestre on tbl_disc_hist.fk_disc_semestre = tbl_disc_semestre.id
+inner join tbl_aluno on tbl_aluno.matricula = tbl_historico.fk_aluno_hist
+inner join tbl_semestre on tbl_semestre.id = tbl_disc_semestre.fk_semestre
+;
+
+create or replace view view_frequencias_disciplinas as 
+select 
+tbl_frequencia_disciplina.id, tbl_aluno.matricula, tbl_disc_semestre.id as cod_turma, tbl_disc_hist.id as disc_hist,
+sum(tbl_frequencia_disciplina.frequencia) as frequencia,
+tbl_semestre.nome as semestre
+from tbl_frequencia_disciplina
+inner join tbl_disc_hist on tbl_frequencia_disciplina.fk_disc_hist = tbl_disc_hist.id
+inner join tbl_historico on tbl_disc_hist.fk_hist = tbl_historico.id
+inner join tbl_disc_semestre on tbl_disc_hist.fk_disc_semestre = tbl_disc_semestre.id
+inner join tbl_aluno on tbl_aluno.matricula = tbl_historico.fk_aluno_hist
+inner join tbl_semestre on tbl_semestre.id = tbl_disc_semestre.fk_semestre
+group by disc_hist
+;
