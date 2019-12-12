@@ -87,7 +87,7 @@ FROM
         INNER JOIN
     tbl_cursos ON tbl_cursos.id = tbl_aluno.fk_curso_aluno
 WHERE
-    view_notas_disciplinas.matricula = 2
+    view_notas_disciplinas.matricula = matricula_aluno
 GROUP BY view_frequencias_disciplinas.disc_hist
 ORDER BY semestre;
 end &&
