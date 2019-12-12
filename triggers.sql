@@ -34,6 +34,14 @@ create trigger trg_valida_matricula before insert on tbl_disc_hist
 		declare matriculado int default 0; -- verifica se o aluno já ta matriculado nessa disciplina nesse semestre
 		declare alunos_turma int default 0; -- verifica se já atingiu 30 alunos na disciplina
 		declare matricula_ativa int default 0; -- verifica se a matricula do aluno está ativa
+		declare qtd_disciplinas int default 0;
+
+		-- SELECT matricula_ativa
+		select status_matricula into matricula_ativa from tbl_aluno, tbl_historico where tbl_historico.id = new.fk_hist
+		AND tbl_historico.fk_aluno_hist = tbl_aluno.matricula;
+		if matricula_ativa = 0 then
+			signal sqlstate '45000'	SET MESSAGE_TEXT = 'Matrícula do aluno está trancada.';
+		end if;
 
 		-- SELECT curso_aluno
 		select fk_curso_aluno into curso_aluno from tbl_aluno where tbl_aluno.matricula =
@@ -80,11 +88,12 @@ create trigger trg_valida_matricula before insert on tbl_disc_hist
 			signal sqlstate '45000'	SET MESSAGE_TEXT = 'Não há mais vagas para essa disciplina.';
 		end if;
 
-		-- SELECT matricula_ativa
-		select status_matricula into matricula_ativa from tbl_aluno, tbl_historico where tbl_historico.id = new.fk_hist
-		AND tbl_historico.fk_aluno_hist = tbl_aluno.matricula;
-		if matricula_ativa = 0 then
-			signal sqlstate '45000'	SET MESSAGE_TEXT = 'Matrícula do aluno está trancada.';
+		-- SELECT qtd_disciplinas
+		select count(status) into qtd_disciplinas from tbl_disc_hist where tbl_disc_hist.fk_hist = new.fk_hist
+		AND tbl_disc_hist.status = 1;
+
+		if qtd_disciplinas >= 9 then
+			signal sqlstate '45000' SET MESSAGE_TEXT = 'Quantidade máxima de matrículas atingida.';
 		end if;
 
 	end
