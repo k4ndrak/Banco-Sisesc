@@ -4,6 +4,11 @@ drop procedure if exists proc_destrancar_matricula;
 drop procedure if exists proc_cadastrar_aluno;
 drop procedure if exists proc_cadastrar_professor;
 drop procedure if exists proc_historico_aluno;
+drop procedure if exists proc_lancar_nota;
+drop procedure if exists proc_lancar_frequencia;
+drop procedure if exists proc_mostrar_notas_disciplina_semestre;
+drop procedure if exists proc_mostrar_alunos_turma;
+
 delimiter //
 create procedure proc_turma_completa(disc_semestre int)
 begin 	
@@ -86,3 +91,40 @@ WHERE
 GROUP BY view_frequencias_disciplinas.disc_hist
 ORDER BY semestre;
 end &&
+
+delimiter &&
+create procedure proc_lancar_nota(matricula int, disc_semestre int, nota double)
+begin 
+declare id_historico, id_disc_hist int;
+select tbl_historico.id into id_historico from tbl_historico where tbl_historico.fk_aluno_hist = matricula;
+select tbl_disc_hist.id into id_disc_hist from tbl_disc_hist where tbl_disc_hist.fk_hist = id_historico and tbl_disc_hist.fk_disc_semestre = disc_semestre;
+insert into tbl_nota_disciplina values (null, nota, id_disc_hist);
+end &&
+
+delimiter &&
+create procedure proc_lancar_frequencia(matricula int, disc_semestre int, frequencia int)
+begin 
+declare id_historico, id_disc_hist int;
+select tbl_historico.id into id_historico from tbl_historico where tbl_historico.fk_aluno_hist = matricula;
+select tbl_disc_hist.id into id_disc_hist from tbl_disc_hist where tbl_disc_hist.fk_hist = id_historico and tbl_disc_hist.fk_disc_semestre = disc_semestre;
+insert into tbl_frequencia_disciplina values (null, frequencia, id_disc_hist);
+end &&
+
+delimiter &&
+create procedure proc_mostrar_notas_disciplina_semestre(matricula int, disc_semestre int)
+begin 
+declare id_historico, id_disc_hist int;
+select tbl_historico.id into id_historico from tbl_historico where tbl_historico.fk_aluno_hist = matricula;
+select tbl_disc_hist.id into id_disc_hist from tbl_disc_hist where tbl_disc_hist.fk_hist = id_historico and tbl_disc_hist.fk_disc_semestre = disc_semestre;
+select * from tbl_nota_disciplina where tbl_nota_disciplina.fk_disc_hist = id_disc_hist
+;
+end &&
+
+delimiter &&
+create procedure proc_mostrar_alunos_turma(disc_semestre int)
+begin
+select * from view_alunos_todas_turmas where Turma = disc_semestre;
+end &&
+
+
+

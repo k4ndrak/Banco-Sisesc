@@ -9,7 +9,8 @@ CREATE OR REPLACE VIEW view_dados_aluno AS
         sexo_user AS Sexo,
         pai_user AS Pai,
         mae_user AS Mae,
-        email_user AS 'email'
+        email_user AS 'email',
+        ano_inicio
     FROM
         tbl_aluno
             INNER JOIN
@@ -109,4 +110,24 @@ CREATE OR REPLACE VIEW view_disciplinas_cursos AS
         tbl_disciplina
     WHERE
         tbl_curso_discip.fk_discip = tbl_disciplina.id
-            AND tbl_cursos.id = tbl_curso_discip.fk_curso
+            AND tbl_cursos.id = tbl_curso_discip.fk_curso;
+            
+            
+CREATE OR REPLACE VIEW view_alunos_todas_turmas AS
+    SELECT 
+        fk_disc_semestre AS Turma,
+        Nome,
+        Curso,
+        Situacao,
+        ano_inicio,
+        CPF,
+        email,
+        data_inicio AS INICIO,
+        data_fim AS FIM
+    FROM
+        tbl_disc_hist
+            INNER JOIN
+        tbl_historico ON tbl_historico.id = tbl_disc_hist.fk_hist
+            INNER JOIN
+        view_dados_aluno ON view_dados_aluno.Matricula = tbl_historico.fk_aluno_hist
+    ORDER BY Nome;
